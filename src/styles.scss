@@ -1,0 +1,13 @@
+@import 'variables';
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  color: $text-dark;
+}
+.App {
+  display: grid;
+  overflow: hidden;
+  height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+}

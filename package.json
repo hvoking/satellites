@@ -1,0 +1,55 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@dimforge/rapier3d": "^0.17.1",
+    "@turf/turf": "^7.1.0",
+    "@types/d3": "^7.4.3",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/three": "^0.176.0",
+    "@types/wellknown": "^0.5.8",
+    "cannon-es": "^0.20.0",
+    "d3": "^7.8.5",
+    "mapbox-gl": "^3.9.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-map-gl": "^7.1.8",
+    "react-scripts": "5.0.1",
+    "sass": "^1.55.0",
+    "satellite.js": "^6.0.0",
+    "three": "^0.176.0",
+    "typescript": "^4.4.2",
+    "wellknown": "^0.5.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "not ie 11",
+      "not chrome < 51",
+      "not safari < 10",
+      "not android < 51"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
