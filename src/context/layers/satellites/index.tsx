@@ -2,7 +2,6 @@
 import { useContext, createContext } from 'react';
 
 // Context imports
-import { useGeo } from 'context/geo';
 import { useSatellitesApi } from 'context/api/satellites';
 
 // Third-party imports
@@ -14,7 +13,6 @@ const SatellitesLayerContext: React.Context<any> = createContext(null)
 export const useSatellitesLayer = () => useContext(SatellitesLayerContext);
 
 export const SatellitesLayerProvider = ({ children }: any) => {
-  const { mapRef } = useGeo();
   const { satellitesData } = useSatellitesApi();
 
   const KM_TO_M = 1000;
