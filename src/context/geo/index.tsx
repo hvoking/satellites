@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useContext, createContext } from 'react';
 
 // App imports
 import * as Locations from './locations';
+import { videoStyle } from './styles';
 
 const GeoContext: React.Context<any> = createContext(null);
 
@@ -42,6 +43,7 @@ export const GeoProvider = ({children}: any) => {
 			mapRef, Locations, 
 			viewport, setViewport, 
 			mapStyle, metaData,
+			videoStyle
 		}}>
 			{children}
 		</GeoContext.Provider>

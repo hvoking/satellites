@@ -10,7 +10,7 @@ import { Map } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Main = () => {
-    const { mapRef, viewport, mapStyle } = useGeo();
+    const { mapRef, viewport, videoStyle } = useGeo();
 
     const { satellitesLayer } = useSatellitesLayer();
     const { wrapperLayer } = useWrapperLayer();
@@ -30,7 +30,7 @@ export const Main = () => {
             ref={mapRef}
             initialViewState={viewport}
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle={mapStyle}
+            mapStyle={videoStyle}
             onLoad={onLoad}
             antialias={true}
             projection="globe"
