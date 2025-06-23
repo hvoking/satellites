@@ -1,36 +1,38 @@
-// React imports
-import { useRef } from 'react';
-
 // Context imports
+import { useGeo } from 'context/geo';
 import { useSatellitesLayer } from 'context/layers/satellites';
 import { useWrapperLayer } from 'context/layers/wrapper';
+import { useAntennaLayer } from 'context/layers/antenna';
 
 // Third-party imports
-import { Map } from 'react-map-gl';
+import { Map } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 export const Main = () => {
-    const mapRef = useRef<any>();
+    const { mapRef, viewport, mapStyle } = useGeo();
 
     const { satellitesLayer } = useSatellitesLayer();
     const { wrapperLayer } = useWrapperLayer();
+    const { antennaLayer } = useAntennaLayer();
+
+    console.log(antennaLayer)
 
     const onLoad = () => {
         const map = mapRef.current.getMap();
         map.addLayer(satellitesLayer);
         map.addLayer(wrapperLayer);
+        map.addLayer(antennaLayer);
     };
-
-    const initialViewState = { latitude: 0, longitude: 0, zoom: 2 };
 
     return (
         <Map
             ref={mapRef}
-            initialViewState={initialViewState}
+            initialViewState={viewport}
             mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-            mapStyle={"mapbox://styles/hvoking/cm1h7n1kp01ed01pd24g689ob"}
+            mapStyle={mapStyle}
             onLoad={onLoad}
             antialias={true}
+            projection="globe"
         />
     );
 };

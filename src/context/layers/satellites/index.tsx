@@ -19,50 +19,52 @@ export const SatellitesLayerProvider = ({ children }: any) => {
   const TIME_STEP = 3 * 1000;
 
   const globeVertCode = `
-      attribute vec3 a_pos_ecef;
-      attribute vec3 a_pos_merc;
+    attribute vec3 a_pos_ecef;
+    attribute vec3 a_pos_merc;
 
-      uniform mat4 u_projection;
-      uniform mat4 u_globeToMercMatrix;
-      uniform float u_globeToMercatorTransition;
+    uniform mat4 u_projection;
+    uniform mat4 u_globeToMercMatrix;
+    uniform float u_globeToMercatorTransition;
 
-      void main() {
-          vec4 p = u_projection * u_globeToMercMatrix * vec4(a_pos_ecef, 1.);
-          if (u_globeToMercatorTransition > 0.) {
-              vec4 merc = u_projection * vec4(a_pos_merc, 1.);
-              p = mix(p, merc, u_globeToMercatorTransition);
-          }
-          gl_PointSize = 30.;
-          gl_Position = p;
+    void main() {
+      vec4 p = u_projection * u_globeToMercMatrix * vec4(a_pos_ecef, 1.);
+      if (u_globeToMercatorTransition > 0.) {
+          vec4 merc = u_projection * vec4(a_pos_merc, 1.);
+          p = mix(p, merc, u_globeToMercatorTransition);
       }
+      gl_PointSize = 30.;
+      gl_Position = p;
+    }
   `;
 
   const mercVertCode = `
-      precision highp float;
-      attribute vec3 a_pos_merc;
-      uniform mat4 u_projection;
+    precision highp float;
+    attribute vec3 a_pos_merc;
+    uniform mat4 u_projection;
 
-      void main() {
-          gl_PointSize = 30.;
-          gl_Position = u_projection * vec4(a_pos_merc, 1.);
-      }
+    void main() {
+      gl_PointSize = 30.;
+      gl_Position = u_projection * vec4(a_pos_merc, 1.);
+    }
   `;
 
   const fragCode = `
-      precision highp float;
-      uniform vec4 u_color;
+    precision highp float;
+    uniform vec4 u_color;
 
-      void main() {
-          gl_FragColor = vec4(0., 1., 0., 1.);
-      }
+    void main() {
+      gl_FragColor = vec4(0., 1., 0., 1.);
+    }
   `;
 
   let time = new Date();
+  
   let posEcef: number[] = [];
   let posMerc: number[] = [];
 
   let posEcefVbo: any;
   let posMercVbo: any;
+  
   let globeProgram: any;
   let mercProgram: any;
 
@@ -78,24 +80,22 @@ export const SatellitesLayerProvider = ({ children }: any) => {
   const createProgram = (gl: any, vert: string, frag: string) => {
     const vertShader = createShader(gl, vert, gl.VERTEX_SHADER);
     const fragShader = createShader(gl, frag, gl.FRAGMENT_SHADER);
+
     const program = gl.createProgram()!;
+
     gl.attachShader(program, vertShader);
     gl.attachShader(program, fragShader);
+
     gl.linkProgram(program);
     gl.validateProgram(program);
+
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
       console.error(`Could not compile WebGL program:\n${gl.getProgramInfoLog(program)}`);
     }
     return program;
   };
 
-  const updateVboAndActivateAttrib = (
-    gl: any,
-    prog: any,
-    vbo: any,
-    data: number[],
-    attribName: string
-  ) => {
+  const updateVboAndActivateAttrib = (gl: any, prog: any, vbo: any, data: number[], attribName: string) => {
     gl.bindBuffer(gl.ARRAY_BUFFER, vbo);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.DYNAMIC_DRAW);
     const attribLoc = gl.getAttribLocation(prog, attribName);
@@ -146,7 +146,7 @@ export const SatellitesLayerProvider = ({ children }: any) => {
       const primitiveCount = posEcef.length / 3;
       gl.disable(gl.DEPTH_TEST);
 
-      if (projection && projection.name === 'globe') {
+      if (projection?.name === 'globe') {
         gl.useProgram(globeProgram);
         updateVboAndActivateAttrib(gl, globeProgram, posEcefVbo, posEcef, 'a_pos_ecef');
         updateVboAndActivateAttrib(gl, globeProgram, posMercVbo, posMerc, 'a_pos_merc');
@@ -156,7 +156,8 @@ export const SatellitesLayerProvider = ({ children }: any) => {
         gl.uniform1f(gl.getUniformLocation(globeProgram, 'u_globeToMercatorTransition'), transition);
 
         gl.drawArrays(gl.POINTS, 0, primitiveCount);
-      } else {
+      } 
+      else {
         gl.useProgram(mercProgram);
         updateVboAndActivateAttrib(gl, mercProgram, posMercVbo, posMerc, 'a_pos_merc');
         gl.uniformMatrix4fv(gl.getUniformLocation(mercProgram, 'u_projection'), false, matrix);
