@@ -3,6 +3,7 @@ import { useGeo } from 'context/geo';
 import { useSatellitesLayer } from 'context/layers/satellites';
 import { useWrapperLayer } from 'context/layers/wrapper';
 import { useAntennaLayer } from 'context/layers/antenna';
+import { useCubeLayer } from 'context/layers/cube';
 
 // Third-party imports
 import { Map } from 'react-map-gl/mapbox';
@@ -14,14 +15,15 @@ export const Main = () => {
     const { satellitesLayer } = useSatellitesLayer();
     const { wrapperLayer } = useWrapperLayer();
     const { antennaLayer } = useAntennaLayer();
-
-    console.log(antennaLayer)
+    const { cubeLayer } = useCubeLayer();
 
     const onLoad = () => {
         const map = mapRef.current.getMap();
+        map.addLayer(cubeLayer);
         map.addLayer(satellitesLayer);
         map.addLayer(wrapperLayer);
         map.addLayer(antennaLayer);
+        
     };
 
     return (
