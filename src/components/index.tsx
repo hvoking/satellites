@@ -23,7 +23,6 @@ export const Main = () => {
         map.addLayer(satellitesLayer);
         map.addLayer(wrapperLayer);
         map.addLayer(antennaLayer);
-        
     };
 
     return (

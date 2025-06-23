@@ -9,7 +9,6 @@ import { useGeo } from 'context/geo';
 
 // Third-party imports
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const CubeLayerContext: React.Context<any> = createContext(null)
 
@@ -30,7 +29,7 @@ export const CubeLayerProvider = ({ children }: any) => {
   const modelAltitude = 100000;
 
   const cubeLayer = {
-    id: 'antenna-layer',
+    id: 'cube-layer',
     type: 'custom',
     renderingMode: '3d',
 
