@@ -39,9 +39,14 @@ const getRotation = (lng: any, lat: any) => {
 }
 
 export const getEcefMatrix = ({ lng, lat }: any, altitude: any) => {
-	const ecef = mapboxgl.LngLat.convert([lng, lat]).toEcef(altitude);
+	// Validate coordinates before processing
+	const validLat = Math.max(-90, Math.min(90, lat));
+	const validLng = ((lng % 360) + 360) % 360;
+	const normalizedLng = validLng > 180 ? validLng - 360 : validLng;
+
+	const ecef = mapboxgl.LngLat.convert([normalizedLng, validLat]).toEcef(altitude);
 	const scale = meterInECEFUnits(altitude);
-	const rotationFromEuler = getRotation(lng, lat);
+	const rotationFromEuler = getRotation(normalizedLng, validLat);
 
 	const translation = new THREE.Matrix4().makeTranslation(...ecef);
 	const rotation = new THREE.Matrix4().makeRotationFromEuler(rotationFromEuler);

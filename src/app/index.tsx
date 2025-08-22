@@ -1,6 +1,6 @@
 // App imports
-import { Main } from 'components';
-import { MainProvider } from 'context';
+import { Maps } from './maps';
+import { ContextProvider } from 'context';
 import './styles.scss';
 
 export const App = () => {
@@ -13,11 +13,11 @@ export const App = () => {
   });
   
   return (
-    <div className="App">
-      <MainProvider>
-        <Main/>
-      </MainProvider>
-    </div>
+    <ContextProvider>
+      <div className="App">
+        <Maps/>
+      </div>
+    </ContextProvider>
   );
 }
 

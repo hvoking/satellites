@@ -2,7 +2,7 @@ import { ApiProvider } from './api';
 import { LayersProvider } from './layers';
 import { GeoProvider } from './geo';
 
-export const MainProvider = ({children}: any) => {
+export const ContextProvider = ({children}: any) => {
   return (
     <GeoProvider>
     <ApiProvider>
@@ -14,4 +14,4 @@ export const MainProvider = ({children}: any) => {
   )
 }
 
-MainProvider.displayName="MainProvider";
+ContextProvider.displayName="ContextProvider";

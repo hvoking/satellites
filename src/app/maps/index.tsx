@@ -9,7 +9,7 @@ import { useCubeLayer } from 'context/layers/cube';
 import { Map } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-export const Main = () => {
+export const Maps = () => {
     const { mapRef, viewport, videoStyle } = useGeo();
 
     const { satellitesLayer } = useSatellitesLayer();
@@ -38,4 +38,4 @@ export const Main = () => {
     );
 };
 
-Main.displayName = "Main";
+Maps.displayName = "Maps";
